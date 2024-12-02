@@ -1,0 +1,59 @@
+---
+title: "prueba"
+format:
+  revealjs:
+    embed-resources: true
+author: "Mónica Hortalá"
+execute:
+  echo: true
+---
+
+## Carga de datos
+
+Datos de **accidentes de tráficos** la ciudad de Madrid del año 2020
+
+```{r}
+library(tidyverse)
+datos <- read.csv(file = "./datos/accidentes.csv")
+datos
+```
+
+--- 
+
+## Resumen de los datos
+
+```{r}
+resumen <- datos |> count(sexo)
+```
+
+---
+
+## Visualización 
+
+```{r}
+#| code-fold: true
+ggplot(resumen) +
+  geom_col(aes(x = sexo, y = n, fill = sexo), alpha = 0.56) + 
+  ggthemes::scale_fill_colorblind() +
+  theme_minimal()
+```
+
+---
+
+
+## Visualización interactiva
+
+```{r}
+#| code-fold: true
+gg <- 
+  ggplot(resumen) +
+  geom_col(aes(x = sexo, y = n, fill = sexo), alpha = 0.56) + 
+  ggthemes::scale_fill_colorblind() +
+  theme_minimal()
+plotly::ggplotly(gg)
+
+```
+
+
+
+
